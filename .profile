@@ -1,3 +1,4 @@
+#!/bin/bash
 export TERM="xterm-color" 
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$HOME/scripts:$PATH"
