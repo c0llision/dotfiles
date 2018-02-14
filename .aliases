@@ -27,6 +27,7 @@ alias g="git"
 alias gs="git status"
 alias gl="git log"
 alias gc="git commit"
+alias gp="git push"
 alias dgit="git --git-dir ~/.dotfiles/.git --work-tree=$HOME"
 alias dg="dgit"
 
