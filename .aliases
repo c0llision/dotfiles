@@ -4,16 +4,16 @@ alias l="ls -G"
 alias ll="ls -lahG"
 alias cl="clear"
 alias ZZ="exit"
-alias ..='cd ..'
+alias ..="cd .."
 alias tree="tree -C"
 alias mk="mkdir"
 alias clip="pbcopy"
-alias sudo='sudo '
+alias sudo="sudo "
 
 # folders 
 alias code="cd ~/code"
 alias downloads="cd ~/Downloads"
-alias dls='downloads'
+alias dls="downloads"
 alias docs="cd ~/Documents"
 
 # python
@@ -27,7 +27,7 @@ alias gs="git status"
 alias gl="git log"
 alias gc="git commit"
 alias dgit="git --git-dir ~/.dotfiles/.git --work-tree=$HOME"
-alias dg='dgit'
+alias dg="dgit"
 
 # vim
 alias v="vim"
@@ -40,7 +40,7 @@ alias aliases="vim ${HOME}/.aliases && source ${HOME}/.aliases"
 alias profile="vim ${HOME}/.profile && source ${HOME}/.profile"
 alias vscode="/usr/local/bin/code"
 alias weather="curl -4 http://wttr.in/Galway"
-alias ip='curl -4 icanhazip.com'
+alias ip="curl -4 icanhazip.com"
 alias tmux="tmux -2"
 
 # OSX only

@@ -29,7 +29,8 @@ function color_my_prompt {
     local __last_color="\[\033[00m\]"
     export PS1="$__user_and_host $__cur_location $__git_branch_color$__git_branch$__prompt_tail$__last_color$ "
 }
-#PS1='\[\033[1m\033[32m\]\u@\h \w\[\033[0m\]\$ '
+
+#PS1='\[\033[1m\033[32m\]\u@\h \w\[\033[0m\]\$ ' # original PS1
 
 color_my_prompt
 shopt -s autocd
