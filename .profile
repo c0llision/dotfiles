@@ -36,3 +36,5 @@ function color_my_prompt {
 color_my_prompt
 shopt -s autocd
 
+# Autocorrect typos in path names when using `cd`
+shopt -s cdspell;
