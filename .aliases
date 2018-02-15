@@ -25,7 +25,6 @@ alias flake8="flake8 --ignore=E731,--max-complexity 10"
 # git
 alias git="hub"
 alias g="git"
-alias gp="git push"
 alias dgit="git --git-dir ~/.dotfiles/.git --work-tree=$HOME"
 alias dg="dgit"
 
