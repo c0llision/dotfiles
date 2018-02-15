@@ -1,0 +1,20 @@
+[commit]
+	gpgsign = true
+[filter "lfs"]
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+[alias]
+    a = add
+    ap = add -p
+    c = commit
+    ca = commit -a
+    cm = commit -m
+    cam = commit -a -m
+    m = commit --amend --verbose
+    d = diff
+    s = status
+    p = push
+[include]
+    path = ~/.gitconfig.local
