@@ -1,4 +1,5 @@
 #!/bin/bash
+
 # general
 alias c="cd"
 alias l="ls -G"
@@ -49,4 +50,5 @@ alias tmux="tmux -2"
 if [[ "$OSTYPE" == "darwin"* ]]; then
  alias sha256sum="shasum -a 256"
  alias vim="mvim -v"
+ alias update="sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup"
 fi
