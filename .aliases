@@ -32,7 +32,6 @@ alias dg="dgit"
 
 # vim
 alias v="vim"
-alias nano="vim"
 
 # other
 alias sshtor="ssh -F ~/.ssh/config_tor"
