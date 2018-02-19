@@ -43,6 +43,7 @@ alias vscode="/usr/local/bin/code"
 alias weather="curl -4 http://wttr.in/Galway"
 alias ip="curl -4 icanhazip.com"
 alias tmux="tmux -2"
+alias mutt="neomutt"
 
 # One of @janmoesen’s ProTip™s
 for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do

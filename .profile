@@ -2,6 +2,8 @@
 export TERM="xterm-color" 
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$HOME/scripts:$PATH"
+export EDITOR=vim
+export VISUAL=vim 
 
 # aliases
 if [ -f ~/.aliases ]; then
