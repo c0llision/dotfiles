@@ -6,6 +6,9 @@ export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 export EDITOR=vim
 export VISUAL=vim 
 
+# sshuttle
+vpn() { sshuttle --dns -r $1 0/0;}
+
 # aliases
 if [ -f ~/.aliases ]; then
 . ~/.aliases
