@@ -5,8 +5,9 @@ alias c="cd"
 alias ..="cd .."
 alias -- -="cd -"
 alias mk="mkdir"
-alias l="ls -G"
-alias ll="ls -lahG"
+alias ls="ls -F --color=auto"
+alias l="ls"
+alias ll="ls -lah"
 alias tree="tree -C"
 alias cl="clear"
 alias ZZ="exit"
@@ -43,6 +44,7 @@ alias weather="curl -4 http://wttr.in/Galway"
 alias ip="curl -4 icanhazip.com"
 alias tmux="tmux -2"
 alias mutt="neomutt"
+alias hexdump="hexdump -C"
 
 # One of @janmoesen’s ProTip™s
 for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
@@ -55,4 +57,5 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
  alias vim="mvim -v"
  alias update="sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup"
  alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
+ alias finder="open ."
 fi
