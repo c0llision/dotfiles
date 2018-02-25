@@ -12,6 +12,7 @@
     ca = commit -a
     cm = commit -m
     cam = commit -a -m
+    camp = "!f() { git commit -a -m \"$@\" && git push; }; f"
     l = log
     m = commit --amend --verbose
     d = diff
