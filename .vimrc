@@ -1,4 +1,3 @@
-set nocompatible
 filetype off
 syntax on
 set encoding=utf-8
@@ -74,10 +73,8 @@ nnoremap <Leader>u :UndotreeToggle<Enter>
 
 " theme
 set background=dark
-" colorscheme Zenburn
-" call togglebg#map("<F5>")
 
-" vim swap files in speical directory
+" vim swap files in special directory
 let swap_dir = expand("~/.vim/swapfiles")
 if !isdirectory(swap_dir)
   call mkdir(swap_dir)
@@ -97,28 +94,11 @@ endif
 
 " Python
 let python_highlight_all=1
-" syntax on
-" au BufNewFile,BufRead *.py
-"     \ set tabstop=4 |
-"     \ set softtabstop=4 |
-"     \ set shiftwidth=4 |
-"     \ set textwidth=79 |
-"     \ set expandtab |
-"     \ set autoindent |
-"     \ set fileformat=unix
-" 
-" au BufNewFile,BufRead *.js, *.html, *.css
-"     \ set tabstop=2 |
-"     \ set softtabstop=2 |
-"     \ set shiftwidth=2
-" 
 highlight BadWhitespace ctermbg=red guibg=darkred
-" au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 
 " Plugins
 
 Plugin 'gmarik/Vundle.vim'
-" Plugin 'vim-scripts/indentpython.vim'
 Plugin 'vim-syntastic/syntastic'
 Plugin 'nvie/vim-flake8'
 Plugin 'jnurmine/Zenburn'
@@ -129,6 +109,7 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'mbbill/undotree'
 Plugin 'jamessan/vim-gnupg'
+Plugin 'johngrib/vim-game-code-break'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
