@@ -11,6 +11,7 @@
     c = commit
     ca = commit -a
     cm = commit -m
+    cmp = "!f() { git commit -m \"$@\" && git push; }; f"
     cam = commit -a -m
     camp = "!f() { git commit -a -m \"$@\" && git push; }; f"
     l = log
