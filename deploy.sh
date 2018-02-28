@@ -19,5 +19,8 @@ cp .profile ~/
 mv ~/.vimrc ~/.dotfiles.old/
 cp .vimrc ~/
 
+mv ~/.curlrc ~/.dotfiles.old/
+cp .curlrc ~/
+
 mv ~/.ssh/config ~/.dotfiles.old/.ssh-config
 cp .ssh/config ~/.ssh/config
