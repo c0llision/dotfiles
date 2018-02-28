@@ -13,8 +13,9 @@ alias lll="tree"
 alias cl="clear"
 alias ZZ="exit"
 alias :q="exit"
-alias clip="pbcopy"
 alias sudo="sudo "
+if [ -x "$(command -v pbcopy)" ]; then alias clip="pbcopy"; fi
+if [ -x "$(command -v code)" ]; then alias vscode="/usr/local/bin/code"; fi
 
 # folders 
 alias code="cd ~/code"
@@ -23,40 +24,48 @@ alias dls="downloads"
 alias docs="cd ~/Documents"
 
 # python
-alias unittest="coverage run --source . -m unittest"
-alias flake8="flake8 --ignore=E731,--max-complexity 10"
+if [ -x "$(command -v python)" ]; then
+  if [ -x "$(command -v coverage)" ]; then alias unittest="coverage run --source . -m unittest"; fi
+  if [ -x "$(command -v flake8)" ]; then alias flake8="flake8 --ignore=E731,--max-complexity 10"; fi
+fi
 
 # git
-alias git="hub"
-alias g="git"
-alias dgit="git --git-dir ~/.dotfiles/.git --work-tree=$HOME"
-alias dg="dgit"
+if [ -x "$(command -v git)" ]; then
+  if [ -x "$(command -v hub)" ]; then alias git="hub"; fi
+  alias g="git"
+  alias dgit="git --git-dir ~/.dotfiles/.git --work-tree=$HOME"
+  alias dg="dgit"
+fi
 
 # vim
+if [ -x "$(command -v mvim)" ]; then alias vim="mvim -v";
+else if ! [ -x "$(command -v vim)" ]; then alias vim="nano"; fi # eww!
+fi
 alias v="vim"
 
 # other
 alias sshtor="ssh -F ~/.ssh/config_tor"
 alias sshkeys="ssh-keygen -l -f ~/.ssh/known_hosts"
-alias aliases="vim ${HOME}/.aliases && source ${HOME}/.aliases"
-alias profile="vim ${HOME}/.profile && source ${HOME}/.profile"
-alias vscode="/usr/local/bin/code"
+alias aliases="v ${HOME}/.aliases && unalias -a && source ${HOME}/.aliases"
+alias profile="v ${HOME}/.profile && unalias -a && source ${HOME}/.profile"
 alias weather="curl -4 http://wttr.in/Galway"
 alias ip="curl -4 icanhazip.com"
-alias tmux="tmux -2"
-alias mutt="neomutt"
-alias hexdump="hexdump -C"
+if [ -x "$(command -v tmux)" ]; then alias tmux="tmux -2"; fi
+if [ -x "$(command -v hexdump)" ]; then alias hexdump="hexdump -C"; fi
+if [ -x "$(command -v neomutt)" ]; then alias mutt="neomutt"; fi
 
-# One of @janmoesen’s ProTip™s
-for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
-	alias "${method}"="lwp-request -m '${method}'"
-done
+
+if [ -x "$(command -v vim)" ]; then
+  # One of @janmoesen’s ProTip™s
+  for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
+	  alias "${method}"="lwp-request -m '${method}'"
+  done
+fi
 
 # OSX only
 if [[ "$OSTYPE" == "darwin"* ]]; then
- alias sha256sum="shasum -a 256"
- alias vim="mvim -v"
- alias update="sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup"
- alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
- alias finder="open ."
+  if [ -x "$(command -v shasum)" ]; then alias sha256sum="shasum -a 256"; fi
+  alias update="sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup"
+  alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
+  alias finder="open ."
 fi

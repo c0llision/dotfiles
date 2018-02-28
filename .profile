@@ -3,11 +3,15 @@ export TERM="xterm-color"
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$HOME/scripts:$PATH"
 export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
-export EDITOR=vim
-export VISUAL=vim 
+if [ -x "$(command -v vim)" ]; then
+  export EDITOR=vim
+  export VISUAL=vim 
+fi
 
 # sshuttle
-vpn() { sshuttle --dns -r $1 0/0;}
+if [ -x "$(command -v sshuttle)" ]; then
+  vpn() { sshuttle --dns -r $1 0/0;}
+fi
 
 # aliases
 if [ -f ~/.aliases ]; then
@@ -15,7 +19,9 @@ if [ -f ~/.aliases ]; then
 fi
 
 # Fuck command
-eval $(thefuck --alias)
+if [ -x "$(command -v thefuck)" ]; then
+  eval $(thefuck --alias)
+fi
 
 # OSX only
 if [[ "$OSTYPE" == "darwin"* ]]; then
@@ -30,9 +36,7 @@ function color_my_prompt {
     local __user_and_host="\[\033[01;32m\]\u@\h"
     local __cur_location="\[\033[01;34m\]\w"
     local __git_branch_color="\[\033[31m\]"
-    #local __git_branch="\`ruby -e \"print (%x{git branch 2> /dev/null}.grep(/^\*/).first || '').gsub(/^\* (.+)$/, '(\1) ')\"\`"
     local __git_branch='`git branch 2> /dev/null | grep -e ^* | sed -E  s/^\\\\\*\ \(.+\)$/\(\\\\\1\)\ /`'
-    local __prompt_tail="" #"\[\033[35m\]$"
     local __last_color="\[\033[00m\]"
     export PS1="$__user_and_host $__cur_location $__git_branch_color$__git_branch$__prompt_tail$__last_color$ "
 }
@@ -41,6 +45,3 @@ function color_my_prompt {
 
 color_my_prompt
 shopt -s autocd
-
-# Autocorrect typos in path names when using `cd`
-shopt -s cdspell;
