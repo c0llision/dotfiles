@@ -55,7 +55,7 @@ if [ -x "$(command -v hexdump)" ]; then alias hexdump="hexdump -C"; fi
 if [ -x "$(command -v neomutt)" ]; then alias mutt="neomutt"; fi
 
 
-if [ -x "$(command -v vim)" ]; then
+if [ -x "$(command -v lwp-request)" ]; then
   # One of @janmoesen’s ProTip™s
   for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
 	  alias "${method}"="lwp-request -m '${method}'"
