@@ -4,6 +4,9 @@ mkdir ~/.dotfiles.old
 mv ~/.aliases ~/.dotfiles.old/
 cp .aliases ~/
 
+mv ~/.curlrc ~/.dotfiles.old/
+cp .curlrc ~/
+
 mv ~/.gdbinit ~/.dotfiles.old/
 cp .gdbinit ~/
 
@@ -18,9 +21,6 @@ cp .profile ~/
 
 mv ~/.vimrc ~/.dotfiles.old/
 cp .vimrc ~/
-
-mv ~/.curlrc ~/.dotfiles.old/
-cp .curlrc ~/
 
 mv ~/.ssh/config ~/.dotfiles.old/.ssh-config
 cp .ssh/config ~/.ssh/config
