@@ -2,27 +2,27 @@
 mkdir ~/.dotfiles.old
 
 mv ~/.aliases ~/.dotfiles.old/
-cp .aliases ~/
+cp aliases ~/.aliases
 
 mv ~/.curlrc ~/.dotfiles.old/
-cp .curlrc ~/
+cp curlrc ~/.curlrc 
 
 mv ~/.gdbinit ~/.dotfiles.old/
-cp .gdbinit ~/
+cp gdbinit ~/.gdbinit 
 
 mv ~/.gitconfig ~/.dotfiles.old/
-cp .gitconfig ~/
+cp gitconfig ~/.gitconfig 
 
 mv ~/.inputrc ~/.dotfiles.old/
-cp .inputrc ~/
+cp inputrc ~/.inputrc 
 
 mv ~/.profile ~/.dotfiles.old/
-cp .profile ~/
+cp profile ~/.profile 
 
 mv ~/.vimrc ~/.dotfiles.old/
-cp .vimrc ~/
+cp vimrc ~/.vimrc 
 
-mv ~/.ssh/config ~/.dotfiles.old/.ssh-config
-cp .ssh/config ~/.ssh/config
+mv ~/.ssh/config ~/.dotfiles.old/.ssh_config
+cp ssh_config ~/.ssh/config
 
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
