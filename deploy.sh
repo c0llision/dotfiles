@@ -25,5 +25,5 @@ cp vimrc ~/.vimrc
 mv ~/.ssh/config ~/.dotfiles.old/.ssh_config
 cp ssh_config ~/.ssh/config
 
-rm -r ~/.vim/bundle/Vundle.vim
+rm -rf ~/.vim/bundle/Vundle.vim
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
