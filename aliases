@@ -68,4 +68,5 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   alias update="sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup"
   alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
   alias finder="open ."
+  if open -Ra "electrum" ; then alias electrum='open -a electrum'; fi
 fi
