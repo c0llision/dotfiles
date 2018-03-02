@@ -62,11 +62,19 @@ if [ -x "$(command -v lwp-request)" ]; then
   done
 fi
 
-# OSX only
+# OS specific
 if [[ "$OSTYPE" == "darwin"* ]]; then
   if [ -x "$(command -v shasum)" ]; then alias sha256sum="shasum -a 256"; fi
   alias update="sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup"
   alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
   alias finder="open ."
   if open -Ra "electrum" ; then alias electrum='open -a electrum'; fi
+  alias apt="brew"
+
+elif [[ "$OSTYPE" == "linux"* ]]; then
+  if [ -x "$(command -v apt)" ]; then
+    alias apt="sudo apt"
+    alias update"apt update && apt upgrade && apt autoremove && apt clean"
+    function brew(){ sudo apt "$@";}
+  fi
 fi
