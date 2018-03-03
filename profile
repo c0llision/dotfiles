@@ -4,6 +4,11 @@ export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$HOME/scripts:$PATH"
 export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 
+export GOPATH=$HOME/go
+export GOROOT=/usr/local/opt/go/libexec
+export PATH=$PATH:$GOPATH/bin
+export PATH=$PATH:$GOROOT/bin
+
 if [ -x "$(command -v vim)" ]; then
   export EDITOR=vim
   export VISUAL=vim 
