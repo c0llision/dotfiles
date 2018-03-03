@@ -3,6 +3,7 @@ export TERM="xterm-color"
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$HOME/scripts:$PATH"
 export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+
 if [ -x "$(command -v vim)" ]; then
   export EDITOR=vim
   export VISUAL=vim 
@@ -32,6 +33,14 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   fi
 fi
 
+# Bash history
+export HISTCONTROL="erasedups:ignoreboth"
+export HISTFILESIZE=500000
+export HISTSIZE=100000
+export HISTIGNORE="&:ls:[bf]g:exit:ZZ:pwd:clear:cl:?:??:[ \t]*"
+shopt -s histappend
+shopt -s cmdhist
+
 function color_my_prompt {
     local __user_and_host="\[\033[01;32m\]\u@\h"
     local __cur_location="\[\033[01;34m\]\w"
@@ -41,7 +50,9 @@ function color_my_prompt {
     export PS1="$__user_and_host $__cur_location $__git_branch_color$__git_branch$__prompt_tail$__last_color$ "
 }
 
-#PS1='\[\033[1m\033[32m\]\u@\h \w\[\033[0m\]\$ ' # original PS1
-
 color_my_prompt
+
+# original PS1
+# PS1='\[\033[1m\033[32m\]\u@\h \w\[\033[0m\]\$ '
+
 shopt -s autocd
