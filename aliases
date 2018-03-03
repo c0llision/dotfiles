@@ -13,6 +13,7 @@ alias lll="tree"
 alias cl="clear"
 alias ZZ="exit"
 alias :q="exit"
+alias :Q="exit"
 alias sudo="sudo "
 if [ -x "$(command -v pbcopy)" ]; then alias clip="pbcopy"; fi
 if [ -x "$(command -v code)" ]; then alias vscode="/usr/local/bin/code"; fi
