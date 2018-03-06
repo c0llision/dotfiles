@@ -23,6 +23,7 @@ alias code="c ~/code"
 alias downloads="c ~/Downloads"
 alias dls="downloads"
 alias docs="c ~/Documents"
+alias doc="docs"
 alias ~="c ~"
 
 # python
