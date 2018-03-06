@@ -1,28 +1,29 @@
 #!/bin/bash
 
 # general
-alias c="cd"
-alias ..="cd .."
-alias -- -="cd -"
-alias mk="mkdir"
 alias tree="tree -C"
 alias ls="ls -F --color=auto"
 alias l="ls"
 alias ll="ls -lah"
 alias lll="tree"
+alias ..="cd .."
+alias -- -="cd -"
 alias cl="clear"
 alias ZZ="exit"
 alias :q="exit"
 alias :Q="exit"
 alias sudo="sudo "
+function mk(){ mkdir "$@" && cd "$@"; }
+function c(){ cd "$@" && ls; }
 if [ -x "$(command -v pbcopy)" ]; then alias clip="pbcopy"; fi
 if [ -x "$(command -v code)" ]; then alias vscode="/usr/local/bin/code"; fi
 
 # folders 
-alias code="cd ~/code"
-alias downloads="cd ~/Downloads"
+alias code="c ~/code"
+alias downloads="c ~/Downloads"
 alias dls="downloads"
-alias docs="cd ~/Documents"
+alias docs="c ~/Documents"
+alias ~="c ~"
 
 # python
 if [ -x "$(command -v python)" ]; then
@@ -39,8 +40,10 @@ if [ -x "$(command -v git)" ]; then
 fi
 
 # vim
-if [ -x "$(command -v mvim)" ]; then alias vim="mvim -v";
-else if ! [ -x "$(command -v vim)" ]; then alias vim="nano"; fi # eww!
+if [ -x "$(command -v mvim)" ]; 
+  then alias vim="mvim -v";
+else if ! [ -x "$(command -v vim)" ]; 
+  then alias vim="nano"; fi # eww!
 fi
 alias v="vim"
 
@@ -74,8 +77,8 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 
 elif [[ "$OSTYPE" == "linux"* ]]; then
   if [ -x "$(command -v apt)" ]; then
-    alias apt="sudo apt"
     alias update="apt update && apt upgrade && apt autoremove && apt clean"
+    alias apt="sudo apt"
     function brew(){ sudo apt "$@";}
   fi
 fi
