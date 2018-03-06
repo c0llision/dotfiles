@@ -1,5 +1,6 @@
 #!/bin/bash
 mkdir ~/.dotfiles.old
+mkdir ~/.ssh
 
 mv ~/.aliases ~/.dotfiles.old/
 cp aliases ~/.aliases
