@@ -37,6 +37,7 @@ if [ -x "$(command -v git)" ]; then
   alias g="git"
   alias dgit="git --git-dir ~/.dotfiles/.git --work-tree=$HOME"
   alias dg="dgit"
+  alias cg="clustergit -R -d ~/code/"
 fi
 
 # vim
