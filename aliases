@@ -80,8 +80,8 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 
 elif [[ "$OSTYPE" == "linux"* ]]; then
   if [ -x "$(command -v apt)" ]; then
-    alias update="apt update && apt upgrade -yy && apt autoremove -yy && apt clean"
     alias apt="sudo apt"
+    alias update="apt update && apt upgrade -yy && apt autoremove -yy && apt clean"
     function brew(){ sudo apt "$@";}
   fi
 fi
