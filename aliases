@@ -28,6 +28,7 @@ alias ~="c ~"
 
 # python
 if [ -x "$(command -v python)" ]; then
+  alias rmpyc='find . -name *.pyc -delete'
   if [ -x "$(command -v coverage)" ]; then alias unittest="coverage run --source . -m unittest"; fi
   if [ -x "$(command -v flake8)" ]; then alias flake8="flake8 --ignore=E731,--max-complexity 10"; fi
 fi
