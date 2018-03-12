@@ -60,6 +60,7 @@ command W w
 command WQ wq
 command Wq wq
 nnoremap ; : 
+nnoremap q: :q
 
 " comment line
 autocmd Filetype python nnoremap <Leader>cc I# <esc>
@@ -95,6 +96,9 @@ endif
 " Python
 let python_highlight_all=1
 highlight BadWhitespace ctermbg=red guibg=darkred
+set shiftwidth=4
+set tabstop=4
+set expandtab
 
 " Plugins
 
