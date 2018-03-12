@@ -43,7 +43,7 @@ set noerrorbells
 set novisualbell
 set t_vb=
 set tm=500
-if has("gui_macvim")      
+if has("gui_macvim")
     autocmd GUIEnter * set vb t_vb=
 endif
 
