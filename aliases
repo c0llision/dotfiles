@@ -29,6 +29,7 @@ alias ~="c ~"
 # python
 if [ -x "$(command -v python)" ]; then
   alias rmpyc='find . -name *.pyc -delete'
+  alias py='python3'
   if [ -x "$(command -v coverage)" ]; then alias unittest="coverage run --source . -m unittest"; fi
   if [ -x "$(command -v flake8)" ]; then alias flake8="flake8 --ignore=E731,--max-complexity 10"; fi
 fi
@@ -49,6 +50,7 @@ else if ! [ -x "$(command -v vim)" ];
   then alias vim="nano"; fi # eww!
 fi
 alias v="vim"
+alias vimrc="v ~/.vimrc"
 
 # other
 alias sshtor="ssh -F ~/.ssh/config_tor"
