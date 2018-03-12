@@ -72,12 +72,23 @@ shopt -s histappend
 shopt -s cmdhist
 
 function color_my_prompt {
-    local __user_and_host="\[\033[01;32m\]\u@\h"
+    if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
+        local __color="\[\033[01;31m\]" # red
+     else
+        local __color="\[\033[01;32m\]" # green
+     fi
+
+    if [ `whoami` == 'root' ]; then
+        local __user_and_host="# \h"
+    else
+        local __user_and_host="$ \h"
+    fi
+
     local __cur_location="\[\033[01;34m\]\w"
     local __git_branch_color="\[\033[31m\]"
     local __git_branch='`git branch 2> /dev/null | grep -e ^* | sed -E  s/^\\\\\*\ \(.+\)$/\(\\\\\1\)\ /`'
     local __last_color="\[\033[00m\]"
-    export PS1="$__user_and_host $__cur_location $__git_branch_color$__git_branch$__prompt_tail$__last_color$ "
+    export PS1="$__color$__user_and_host $__cur_location $__git_branch_color$__git_branch$__prompt_tail$__last_color> "
 }
 
 color_my_prompt
