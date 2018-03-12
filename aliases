@@ -13,6 +13,7 @@ alias ZZ="exit"
 alias :q="exit"
 alias :Q="exit"
 alias sudo="sudo "
+alias filecount="find . -type f | wc -l"
 function mk(){ mkdir "$@" && cd "$@"; }
 function c(){ cd "$@" && ls; }
 if [ -x "$(command -v pbcopy)" ]; then alias clip="pbcopy"; fi
