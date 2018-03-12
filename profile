@@ -3,6 +3,7 @@ export TERM="xterm-color"
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$HOME/scripts:$PATH"
 export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+export PATH="/usr/local/sbin:$PATH"
 
 export GOPATH=$HOME/go
 export GOROOT=/usr/local/opt/go/libexec
