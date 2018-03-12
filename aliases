@@ -19,6 +19,15 @@ function c(){ cd "$@" && ls; }
 if [ -x "$(command -v pbcopy)" ]; then alias clip="pbcopy"; fi
 if [ -x "$(command -v code)" ]; then alias vscode="/usr/local/bin/code"; fi
 
+# Change "sudo su" to "sudo -Es" (experimental)
+function sudo() {
+  if [ $@ == 'su' ]; then
+    /usr/bin/sudo -Es;
+  else
+    /usr/bin/sudo $@;
+  fi
+}
+
 # folders 
 alias code="c ~/code"
 alias downloads="c ~/Downloads"

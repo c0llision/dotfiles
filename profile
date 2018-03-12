@@ -79,7 +79,7 @@ function color_my_prompt {
      fi
 
     if [ `whoami` == 'root' ]; then
-        local __user_and_host="# \h"
+        local __user_and_host="# \u@\h"
     else
         local __user_and_host="$ \h"
     fi
