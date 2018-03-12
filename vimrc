@@ -43,7 +43,7 @@ set noerrorbells
 set novisualbell
 set t_vb=
 set tm=500
-if has("gui_macvim")
+if has("gui_macvim")      
     autocmd GUIEnter * set vb t_vb=
 endif
 
@@ -54,13 +54,16 @@ nnoremap <Leader>gp :Gpush<Enter>
 nnoremap <Leader>html :-1read $HOME/.vim/skeleton.html<CR>3jf>a 
 nnoremap <Leader>python :-1read $HOME/.vim/skeleton.py<CR>3ji    
 
+" \r to run currently opened file
+noremap <Leader>r :!%:p<CR>
+
 map Q <Nop>
 command Q q
 command W w
 command WQ wq
 command Wq wq
 nnoremap ; : 
-nnoremap q: :q
+map q: <Nop>
 
 " comment line
 autocmd Filetype python nnoremap <Leader>cc I# <esc>
