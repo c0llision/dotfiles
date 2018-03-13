@@ -59,6 +59,7 @@ if [ -x "$(command -v mvim)" ];
 else if ! [ -x "$(command -v vim)" ]; 
   then alias vim="nano"; fi # eww!
 fi
+alias vim="vim -p"
 alias v="vim"
 alias vimrc="v ~/.vimrc"
 
