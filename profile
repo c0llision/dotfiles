@@ -67,7 +67,8 @@ fi
 export HISTCONTROL="erasedups:ignoreboth"
 export HISTFILESIZE=500000
 export HISTSIZE=100000
-export HISTIGNORE="&:ls:[bf]g:exit:ZZ:pwd:clear:cl:?:??:[ \t]*"
+#export HISTIGNORE="&:ls:[bf]g:exit:ZZ:pwd:clear:cl:?:??:[ \t]*"
+export HISTIGNORE=""
 shopt -s histappend
 shopt -s cmdhist
 
