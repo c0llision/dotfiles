@@ -57,6 +57,9 @@ nnoremap <Leader>python :-1read $HOME/.vim/skeleton.py<CR>3ji
 " \r to run currently opened file
 noremap <Leader>r :!%:p<CR>
 
+" ./ to disable search highlighting
+nmap <silent> ./ :nohlsearch<CR>
+
 map Q <Nop>
 command Q q
 command W w
