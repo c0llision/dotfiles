@@ -21,7 +21,7 @@ if [ -x "$(command -v code)" ]; then alias vscode="/usr/local/bin/code"; fi
 
 # Change "sudo su" to "sudo -Es" (experimental)
 function sudo() {
-  if [ $@ == 'su' ]; then
+  if [[ $@ == 'su' ]]; then
     /usr/bin/sudo -Es;
   else
     /usr/bin/sudo $@;
@@ -55,7 +55,23 @@ if [ -x "$(command -v git)" ]; then
     mk $@;
     git init;
     hub create -p;
+    echo "# $@" > README.md;
+    git add README.md;
+    git cam "Added README.md":
+    git p -u origin master;
   }
+
+  function clone() {
+    local tmp=$(mktemp)
+    local repo_name
+
+    cd ~/code
+    git clone "$@" --progress 2>&1 | tee $tmp # OSX only
+    repo_name=$(awk -F\' '/Cloning into/ {print $2}' $tmp)
+    rm $tmp
+    cd "$repo_name"
+  }
+
   if [ -x "$(command -v clustergit)" ]; then alias cg="clustergit -R -d ~/code/"; fi
 fi
 
