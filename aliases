@@ -95,6 +95,7 @@ alias ip="curl -4 icanhazip.com"
 if [ -x "$(command -v tmux)" ]; then alias tmux="tmux -2"; fi
 if [ -x "$(command -v hexdump)" ]; then alias hexdump="hexdump -C"; fi
 if [ -x "$(command -v neomutt)" ]; then alias mutt="neomutt"; fi
+if [ -x "$(command -v hideout)" ]; then alias h="hideout"; fi
 
 
 if [ -x "$(command -v lwp-request)" ]; then
