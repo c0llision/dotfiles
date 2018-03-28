@@ -53,6 +53,7 @@ nnoremap <Leader>gp :Gpush<Enter>
 
 nnoremap <Leader>html :-1read $HOME/.vim/skeleton.html<CR>3jf>a 
 nnoremap <Leader>python :-1read $HOME/.vim/skeleton.py<CR>3ji    
+nnoremap <Leader>bash :-1read $HOME/.vim/skeleton.sh<CR>o
 
 " \r to run currently opened file
 noremap <Leader>r :!%:p<CR>
@@ -109,8 +110,8 @@ set expandtab
 " Plugins
 
 Plugin 'gmarik/Vundle.vim'
-Plugin 'vim-syntastic/syntastic'
-Plugin 'nvie/vim-flake8'
+" Plugin 'vim-syntastic/syntastic'
+" Plugin 'nvie/vim-flake8'
 Plugin 'jnurmine/Zenburn'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
