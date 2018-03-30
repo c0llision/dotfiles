@@ -92,6 +92,7 @@ alias aliases="v ${HOME}/.aliases && unalias -a && source ${HOME}/.aliases"
 alias profile="v ${HOME}/.profile && unalias -a && source ${HOME}/.profile"
 alias weather="curl -4 http://wttr.in/Galway"
 alias ip="curl -4 icanhazip.com"
+alias router="firefox http://192.168.0.1"
 if [ -x "$(command -v tmux)" ]; then alias tmux="tmux -2"; fi
 if [ -x "$(command -v hexdump)" ]; then alias hexdump="hexdump -C"; fi
 if [ -x "$(command -v neomutt)" ]; then alias mutt="neomutt"; fi
