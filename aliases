@@ -57,7 +57,7 @@ if [ -x "$(command -v git)" ]; then
     hub create -p;
     echo "# $@" > README.md;
     git add README.md;
-    git cam "Added README.md":
+    git cam "Added README.md";
     git p -u origin master;
   }
 
