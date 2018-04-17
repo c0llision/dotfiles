@@ -47,6 +47,17 @@ if has("gui_macvim")
     autocmd GUIEnter * set vb t_vb=
 endif
 
+" Use my bash config for running bash commands
+set shellcmdflag=-ic
+
+" move lines up and down
+nnoremap <C-j> :m .+1<CR>==
+nnoremap <C-k> :m .-2<CR>==
+inoremap <C-j> <Esc>:m .+1<CR>==gi
+inoremap <C-k> <Esc>:m .-2<CR>==gi
+vnoremap <C-j> :m '>+1<CR>gv=gv
+vnoremap <C-k> :m '<-2<CR>gv=gv
+
 nnoremap <Leader>gs :Gstatus<Enter>
 nnoremap <Leader>gc :Gcommit<Enter>
 nnoremap <Leader>gp :Gpush<Enter>
