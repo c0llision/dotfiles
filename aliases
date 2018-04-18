@@ -1,5 +1,7 @@
 #!/bin/bash
 
+shopt -s expand_aliases
+
 # general
 alias tree="tree -C"
 alias ls="ls -F --color=auto"

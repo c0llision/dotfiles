@@ -47,8 +47,8 @@ if has("gui_macvim")
     autocmd GUIEnter * set vb t_vb=
 endif
 
-" Use my bash config for running bash commands
-set shellcmdflag=-ic
+" Use my bash aliases when running bash commands
+let $BASH_ENV = "~/.aliases"
 
 " move lines up and down
 nnoremap <C-j> :m .+1<CR>==
