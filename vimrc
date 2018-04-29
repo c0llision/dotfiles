@@ -33,6 +33,7 @@ set background=dark                          " Use dark theme
 set wildmenu                                 " Enable wild for command completion
 set backspace=eol,start,indent               " Configure backspace so it acts as it should act
 set clipboard^=unnamed,unnamedplus           " Use system clipboard
+set history=10000                            " Remember more commands and search history
 let g:netrw_dirhistmax=0                     " Disable netrw history file
 let g:airline#extensions#tabline#enabled = 1 " Style the tabs properly
 autocmd BufWritePre * %s/\s\+$//e            " Remove unnecessary whitespace
@@ -41,27 +42,27 @@ autocmd BufWritePre * %s/\s\+$//e            " Remove unnecessary whitespace
 """"""""""""""""""""""""""""""""""""""""""""""
 " Search
 """"""""""""""""""""""""""""""""""""""""""""""
-set ignorecase                               " Ignore case when searching
-set smartcase                                " When searching try to be smart about cases
-set hlsearch                                 " Highlight search results
+set ignorecase                               " Ignore case when search term is all lowercase
+set smartcase                                " If search term has an uppercase, case matters
 set incsearch                                " Makes search act like search in modern browsers
+set hlsearch                                 " Move cursor to matches while typing search
 
 
 """"""""""""""""""""""""""""""""""""""""""""""
 " Line numbering
 """"""""""""""""""""""""""""""""""""""""""""""
-set relativenumber                           " Display relative line numbers
 set number                                   " Current line displays actual number
+set relativenumber                           " Other lines dislay relative numbers
 
 
 """"""""""""""""""""""""""""""""""""""""""""""
 " Indentation
 """"""""""""""""""""""""""""""""""""""""""""""
-set shiftwidth=4                             " Number of spaces inserted for indentation
-set tabstop=4                                " Number of spaces inserted for tab key
-set autoindent                               " Continue indentation when creating new line
-set smartindent                              " React to syntac and try to indent appropriately
 set expandtab                                " Tab inserts spaces
+set tabstop=4                                " Number of spaces inserted for tab key
+set shiftwidth=4                             " Number of spaces inserted for indentation
+set autoindent                               " Continue indentation when creating new line
+set smartindent                              " React to syntax and try to indent appropriately
 
 
 """"""""""""""""""""""""""""""""""""""""""""""
@@ -92,6 +93,32 @@ call EnsureDirExists(&undodir)
 
 
 """"""""""""""""""""""""""""""""""""""""""""""
+" Press enter to run the current program
+""""""""""""""""""""""""""""""""""""""""""""""
+function! RunProgram(filename)
+    echo a:filename
+    if (executable('./' . a:filename))
+        exec ":!./" . a:filename
+    else
+        echo "File is not executable"
+    endif
+endfunction
+nnoremap <CR> :call RunProgram(@%)<cr>
+
+
+""""""""""""""""""""""""""""""""""""""""""""""
+" \r to make current file executable and run it
+""""""""""""""""""""""""""""""""""""""""""""""
+noremap <Leader>r :!chmod +x %:p<cr>:!%:p<cr>
+
+
+""""""""""""""""""""""""""""""""""""""""""""""
+" Press backspace to open a terminal on the bottom
+""""""""""""""""""""""""""""""""""""""""""""""
+nnoremap <bs> :bot terminal<cr>
+
+
+""""""""""""""""""""""""""""""""""""""""""""""
 " Move lines up and down using <C-j> and <C-k>
 " (from https://github.com/noopkat/dotfiles)
 """"""""""""""""""""""""""""""""""""""""""""""
@@ -114,8 +141,6 @@ autocmd BufNewFile *.py 0r ~/.vim/skeletons/skeleton.py
 """"""""""""""""""""""""""""""""""""""""""""""
 " Leader key shortcuts
 """"""""""""""""""""""""""""""""""""""""""""""
-" \r to run currently opened file
-noremap <Leader>r :!%:p<CR>
 " \u to open undotree
 nnoremap <Leader>u :UndotreeToggle<cr><C-w><C-w>
 " ./ to disable search highlighting
