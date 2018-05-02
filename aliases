@@ -1,127 +1,225 @@
 #!/bin/bash
+#####################################################
+# c0llision's bash aliases
+# https://github.com/c0llision/dotfiles
+#####################################################
+weather_location='Galway'                           # City name to use for weather
+code_dir='~/code'                                   # Directory where code is kept
+dl_dir='~/Downloads'                                # Downloads directory
+docs_dir='~/Documents'                              # Documents directory
+router_url='http://192.168.0.1'                     # URL to your router admin panel
+ssh_tor_config='~/.ssh/config_tor'                  # ssh tor config file
+shopt -s expand_aliases                             # Required for using bash aliases in vim
 
-shopt -s expand_aliases
 
-# general
-alias tree="tree -C"
-alias ls="ls -F --color=auto"
-alias l="ls"
-alias ll="ls -lah"
-alias lll="tree"
-alias ..="cd .."
-alias -- -="cd -"
-alias cl="clear"
-alias ZZ="exit"
-alias :q="exit"
-alias :Q="exit"
-alias sudo="sudo "
-alias filecount="find . -type f | wc -l"
-function mk(){ mkdir "$@" && cd "$@"; }
-function c(){ cd "$@" && ls; }
-if [ -x "$(command -v pbcopy)" ]; then alias clip="pbcopy"; fi
-if [ -x "$(command -v code)" ]; then alias vscode="/usr/local/bin/code"; fi
+#####################################################
+# GENERAL
+#####################################################
+alias tree="tree -C"                                # ensure tree is colorized
+alias ls="ls -F --color=auto"                       # ensure ls is colorized
+alias l="ls"                                        # l to list files
+alias ll="ls -lah"                                  # ll to do a long list of files
+alias lll="tree"                                    # lll to print a tree list of files
+alias ..="cd .."                                    # .. to cd down a level
+alias -- -="cd -"                                   # - will go back to last directory
+alias filecount="find . -type f | wc -l"            # filecount will count files in a directory
+function mk(){ mkdir "$@" && cd "$@"; }             # mk will create a new directory and cd into it
+function c(){ cd "$@" && ls; }                      # c will cd into a directory and list its files
 
-# Change "sudo su" to "sudo -Es" (experimental)
-function sudo() {
-  if [[ $@ == 'su' ]]; then
-    /usr/bin/sudo -Es;
-  else
-    /usr/bin/sudo $@;
-  fi
+alias router="firefox $router_url"                  # router opens your router admin panel
+alias sshtor="ssh -F $ssh_tor_config"               # sshtor uses ssh over tor
+alias sshkeys="ssh-keygen -l -f ~/.ssh/known_hosts" # sshkeys shows ssh hosts fingerperints
+alias weather="curl -4 wttr.in/$weather_location"   # weather displays current weather
+alias ip="curl -4 icanhazip.com"                    # ip prints your external ip
+
+alias cl="clear"                                    # cl will clear the screen
+alias sudo="sudo "                                  # This lets you use aliases when sudoing
+alias ZZ="exit"                                     # Vim exit commands work in bash
+alias :q="exit"                                     #
+
+
+#####################################################
+# Application aliases
+#####################################################
+function is_app()
+{
+    if [ -x "$(command -v $1)" ]; then
+        return 0
+    else
+        return 1
+    fi
+}
+function is_dir()
+{
+    if [ -d "$1" ]; then
+        return 0
+    else
+        return 1
+    fi
+}
+function alias_if_app_exists()
+{
+    # $1 = alias name, $2 = command
+    if is_app $2; then
+        alias $1="`which $2`";
+    else
+        echo "unable to create command alias:  $1 $2"
+    fi
+}
+alias_if_app_exists clip pbcopy                     # Pipe input into "clip" to copy it to clip
+alias_if_app_exists vscode code                     # "vscode" opens visual studio code
+
+
+#####################################################
+# Git
+#####################################################
+if is_app git; then
+    if is_app hub; then
+        alias git="hub";                            # Use hub if installed
+    fi
+    if is_app clustergit; then
+        alias cg="clustergit -R -d $code_dir";      # "cg" runs clustergit
+    fi
+    alias g="git"                                   # "g" runs git
+    function gmk()
+    {
+        # "gmk" creates a private github repo in code directory and cds into it
+        #todo: fix this
+        cd ~/code
+        mk $@
+        git init
+        hub create -p
+        echo "# $@" > README.md
+        git add README.md
+        git commit -m "Added README.md"
+        git push -u origin master
+    }
+    function clone()
+    {
+        # "clone" clones a git repo into code directory and cds into it
+        local tmp=$(mktemp)
+        local repo_name
+        cd $code_dir
+        git clone "$@" --progress 2>&1 | tee $tmp # OSX only
+        repo_name=$(awk -F\' '/Cloning into/ {print $2}' $tmp)
+        rm $tmp
+        cd "$repo_name"
+    }
+    if is_dir ~/.dotfiles; then
+        # this is an old way of managing my dotfiles that I still use
+        # more info: https://bit.ly/2ra3Z1x
+        alias dg="git --git-dir ~/.dotfiles/.git --work-tree=$HOME"
+    fi
+fi # end if is_app git
+
+#####################################################
+# Python
+#####################################################
+if is_app python; then
+    alias py="python"                               # "py" opens python shell
+    if is_app python3; then
+        alias python="python3"                      # Use python3 as default
+    fi
+    if is_app coverage; then
+        # Generate code coverage report when running unittest
+        alias unittest="coverage run --source . -m unittest";
+    fi
+fi # end if is_app python
+
+#####################################################
+# Folder aliases
+#####################################################
+function alias_if_dir_exists()
+{
+    # $1 = alias name ¢2 = folder
+    folder="${2/#\~/$HOME}"
+    if is_dir "$folder"; then
+        alias $1="cd $folder && ls"
+    fi
+}
+alias_if_dir_exists code $code_dir                  # "code" cds to code folder
+alias_if_dir_exists dls $dl_dir                     # "dls" cds to downloads folder
+alias_if_dir_exists downloads $dl_dir               # "downloads" cds to downloads folder
+alias_if_dir_exists docs $docs_dir                  # "docs" cds to documents folder
+alias ~="cd $HOME && ls"                            # ~ cds to your home folder
+
+
+#####################################################
+# vim
+#####################################################
+# Use mvim if its installed, otherwise if vim isn't installed at all, use nano
+if is_app mvim; then
+    alias vim="mvim -v";                            # Use mvim if installed
+else if ! is_app vim; then
+    alias vim="nano"; fi                            # Use nano if vim not installed
+fi
+if is_app vim; then
+    alias vim="vim -p"                              # Open multiple files in different tabs
+fi
+alias v="vim"                                       # "v" runs vim
+alias vimrc="vim ~/.vimrc"                          # "vimrc" opens vimrc file in vim
+
+
+#####################################################
+# other
+#####################################################
+function aliases()
+{
+    # "aliases" edits the aliases file in vim
+    vim ${HOME}/.aliases && \
+    unalias -a && \
+    source ${HOME}/.aliases
+}
+function profile()
+{
+    # "aliases" edits the profile file in vim
+    vim ${HOME}/.profile && \
+    unalias -a && \
+    source ${HOME}/.profile
 }
 
-# folders 
-alias code="c ~/code"
-alias downloads="c ~/Downloads"
-alias dls="downloads"
-alias docs="c ~/Documents"
-alias doc="docs"
-alias ~="c ~"
-
-# python
-if [ -x "$(command -v python)" ]; then
-  alias rmpyc='find . -name *.pyc -delete'
-  alias py='python3'
-  if [ -x "$(command -v coverage)" ]; then alias unittest="coverage run --source . -m unittest"; fi
-  if [ -x "$(command -v flake8)" ]; then alias flake8="flake8 --ignore=E731,--max-complexity 10"; fi
+if is_app clementine; then
+    alias clementine="open -a clementine"           # "clementine" opens clementine music player
 fi
-
-# git
-if [ -x "$(command -v git)" ]; then
-  if [ -x "$(command -v hub)" ]; then alias git="hub"; fi
-  alias g="git"
-  alias dgit="git --git-dir ~/.dotfiles/.git --work-tree=$HOME"
-  alias dg="dgit"
-  function gmk() {
-    cd ~/code;
-    mk $@;
-    git init;
-    hub create -p;
-    echo "# $@" > README.md;
-    git add README.md;
-    git cam "Added README.md";
-    git p -u origin master;
-  }
-
-  function clone() {
-    local tmp=$(mktemp)
-    local repo_name
-
-    cd ~/code
-    git clone "$@" --progress 2>&1 | tee $tmp # OSX only
-    repo_name=$(awk -F\' '/Cloning into/ {print $2}' $tmp)
-    rm $tmp
-    cd "$repo_name"
-  }
-
-  if [ -x "$(command -v clustergit)" ]; then alias cg="clustergit -R -d ~/code/"; fi
+if is_app hexdump; then
+    alias hexdump="hexdump -C"                      # Colorize hexdump
 fi
-
-# vim
-if [ -x "$(command -v mvim)" ]; 
-  then alias vim="mvim -v";
-else if ! [ -x "$(command -v vim)" ]; 
-  then alias vim="nano"; fi # eww!
-fi
-alias vim="vim -p"
-alias v="vim"
-alias vimrc="v ~/.vimrc"
-
-# other
-alias sshtor="ssh -F ~/.ssh/config_tor"
-alias sshkeys="ssh-keygen -l -f ~/.ssh/known_hosts"
-alias aliases="v ${HOME}/.aliases && unalias -a && source ${HOME}/.aliases"
-alias profile="v ${HOME}/.profile && unalias -a && source ${HOME}/.profile"
-alias weather="curl -4 http://wttr.in/Galway"
-alias ip="curl -4 icanhazip.com"
-alias router="firefox http://192.168.0.1"
-alias clementine="open -a clementine"
-if [ -x "$(command -v tmux)" ]; then alias tmux="tmux -2"; fi
-if [ -x "$(command -v hexdump)" ]; then alias hexdump="hexdump -C"; fi
-if [ -x "$(command -v neomutt)" ]; then alias mutt="neomutt"; fi
-if [ -x "$(command -v hideout)" ]; then alias h="hideout"; fi
+if is_app hideout; then
+    alias h="hideout"                               # "h" to run hideout password manager
+fi                                                  # Email me if you want a copy of it
 
 
-if [ -x "$(command -v lwp-request)" ]; then
-  # One of @janmoesen’s ProTip™s
-  for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
-	  alias "${method}"="lwp-request -m '${method}'"
-  done
-fi
-
+#####################################################
 # OS specific
+#####################################################
+function osx_update()
+{
+    sudo softwareupdate -i -a
+    if is_app brew; then
+        brew update
+        brew upgrade
+        brew cleanup
+    fi
+}
+function linux_update()
+{
+    sudo apt-get update && \
+    sudo apt-get -yy upgrade && \
+    sudo apt-get -yy autoremove && \
+    sudo apt-get clean;
+}
 if [[ "$OSTYPE" == "darwin"* ]]; then
-  if [ -x "$(command -v shasum)" ]; then alias sha256sum="shasum -a 256"; fi
-  alias update="sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup"
-  alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
-  alias finder="open ."
-  if open -Ra "electrum" ; then alias electrum='open -a electrum'; fi
-  alias apt="brew"
-
+    alias update='osx_update'                         # "update" updates OS
+    alias finder="open ."                             # "finder" opens file manager in cwd
+    if is_app shasum; then
+        alias sha256sum="shasum -a 256"               # sha256sum works as normal on osx
+    fi
+    if open -Ra "electrum"; then
+        alias electrum='open -a electrum'             # electrum works as normal on osx
+    fi
 elif [[ "$OSTYPE" == "linux"* ]]; then
-  if [ -x "$(command -v apt)" ]; then
-    alias apt="sudo apt"
-    alias update="apt update && sudo apt-get -yy upgrade && sudo apt-get -yy autoremove && sudo apt-get clean"
-    function brew(){ sudo apt "$@";}
-  fi
+    if is_app apt; then
+        alias apt="sudo apt"
+        alias update='linux_update'
+    fi
 fi
