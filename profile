@@ -1,41 +1,55 @@
 #!/bin/bash
-export TERM="xterm-color" 
-export PATH="$HOME/.cargo/bin:$PATH"
-export PATH="$HOME/scripts:$PATH"
-export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
-export PATH="/usr/local/sbin:$PATH"
-export PATH="/usr/local/opt/curl/bin:$PATH"
+#####################################################
+# c0llision's bash profile
+# https://github.com/c0llision/dotfiles
+#####################################################
+export TERM="xterm-color"                           # ensure colors work correctly
+aliases_file="$HOME/.aliases"                       # bash aliases file
+
+if [ -f $aliases_file ]; then
+. $aliases_file                                     # Load aliases file
+fi
 
 
+#####################################################
+# Path
+#####################################################
+function add_to_path()
+{
+    if is_dir $1; then
+        export PATH="$1:$PATH"
+    else
+        echo "unable to add to path $1"
+    fi
+}
+export CDPATH=":$code_dir:~:.."                     # change cdpath
+add_to_path "$HOME/.cargo/bin"                      # rust cargo
+add_to_path "$HOME/scripts"                         # My scripts
+add_to_path "/usr/local/sbin"                       # brew(?)
+add_to_path "/usr/local/opt/curl/bin"               # Newer curl
+add_to_path /usr/local/opt/coreutils/libexec/gnubin # Use newer gnu coreutils from brew
+# Go path
 export GOPATH=$HOME/go
 export GOROOT=/usr/local/opt/go/libexec
-export PATH=$PATH:$GOPATH/bin
-export PATH=$PATH:$GOROOT/bin
+add_to_path "$GOPATH/bin"
+add_to_path "$GOROOT/bin"
 
-export CDPATH=":~/code:~:.."
 
-if [ -x "$(command -v vim)" ]; then
-  export EDITOR=vim
-  export VISUAL=vim 
+#####################################################
+# General
+#####################################################
+shopt -s autocd                                     # cd into directory without typing cd
+if is_app vim; then
+  export EDITOR=vim                                 # make vim the default editor
+  export VISUAL=vim
 fi
 
-# sshuttle
-if [ -x "$(command -v sshuttle)" ]; then
-  vpn() { sshuttle --dns -r $1 0/0;}
-fi
-
-# aliases
-if [ -f ~/.aliases ]; then
-. ~/.aliases
-fi
-
-# Fuck command
-if [ -x "$(command -v thefuck)" ]; then
-  eval $(thefuck --alias)
+if is_app sshuttle; then
+  vpn() { sshuttle --dns -r $1 0/0;}                # Use sshuttle as an ssh VPN
 fi
 
 # Uncompress the file passed as an argument (thanks stackoverflow)
-extract () {
+function extract () {
    if [ -f $1 ] ; then
        case $1 in
            *.tar.bz2)   tar        xvjf $1   ;;
@@ -65,7 +79,10 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   fi
 fi
 
+
+#####################################################
 # Bash history
+#####################################################
 export HISTCONTROL="erasedups:ignoreboth"
 export HISTFILESIZE=500000
 export HISTSIZE=100000
@@ -74,6 +91,10 @@ export HISTIGNORE=""
 shopt -s histappend
 shopt -s cmdhist
 
+
+#####################################################
+# Prompt
+#####################################################
 function color_my_prompt {
     if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
         local __color="\[\033[01;31m\]" # red
@@ -93,15 +114,15 @@ function color_my_prompt {
     local __last_color="\[\033[00m\]"
     export PS1="$__color$__user_and_host $__cur_location $__git_branch_color$__git_branch$__prompt_tail$__last_color> "
 }
-
+# PS1='\[\033[1m\033[32m\]\u@\h \w\[\033[0m\]\$ '   # original PS1
 color_my_prompt
 
-# original PS1
-# PS1='\[\033[1m\033[32m\]\u@\h \w\[\033[0m\]\$ '
-
-shopt -s autocd
 
 
+#####################################################
+# auto complete
+# seriously broken
+#####################################################
 # Copied from: https://superuser.com/a/437508
 # Automatically add completion for all aliases to commands having completion functions
 function alias_completion {
