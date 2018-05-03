@@ -27,14 +27,6 @@ filetype plugin indent on
 
 
 """"""""""""""""""""""""""""""""""""""""""""""
-" Colorscheme
-""""""""""""""""""""""""""""""""""""""""""""""
-colorscheme nord                             " Colorscheme to use
-" fix for visual highlighting
-highlight Visual cterm=reverse ctermbg=NONE
-
-
-""""""""""""""""""""""""""""""""""""""""""""""
 " Filenames
 """"""""""""""""""""""""""""""""""""""""""""""
 " todo: add windows support
@@ -72,6 +64,14 @@ let g:startify_lists = [
     \ { 'type': 'bookmarks', 'header': [   'Bookmarks']      },
     \ { 'type': 'commands',  'header': [   'Commands']       },
 \ ]
+
+
+""""""""""""""""""""""""""""""""""""""""""""""
+" Colorscheme
+""""""""""""""""""""""""""""""""""""""""""""""
+colorscheme nord                             " Colorscheme to use
+" fix for visual highlighting
+highlight Visual cterm=reverse ctermbg=NONE
 
 
 """"""""""""""""""""""""""""""""""""""""""""""
