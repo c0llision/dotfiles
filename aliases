@@ -17,8 +17,9 @@ shopt -s expand_aliases                             # Required for using bash al
 #####################################################
 alias tree="tree -C"                                # ensure tree is colorized
 alias ls="ls -F --color=auto"                       # ensure ls is colorized
-alias l="ls"                                        # l to list files
-alias ll="ls -lah"                                  # ll to do a long list of files
+alias l="ls --group-directories-first"             # list directories first
+#alias l="ls"                                        # l to list files
+alias ll="l -lah"                                  # ll to do a long list of files
 alias lll="tree"                                    # lll to print a tree list of files
 alias ..="cd .."                                    # .. to cd down a level
 alias -- -="cd -"                                   # - will go back to last directory
@@ -68,6 +69,7 @@ function alias_if_app_exists()
 }
 alias_if_app_exists clip pbcopy                     # Pipe input into "clip" to copy it to clip
 alias_if_app_exists vscode code                     # "vscode" opens visual studio code
+alias jekyll-run="bundle exec jekyll serve --watch"
 
 
 #####################################################
@@ -158,7 +160,7 @@ if is_app vim; then
 fi
 alias v="vim"                                       # "v" runs vim
 alias vimrc="vim ~/.vimrc"                          # "vimrc" opens vimrc file in vim
-
+alias vp="vim -u ~/.vimrc_private"                  # vp to edit private files in vim
 
 #####################################################
 # other
