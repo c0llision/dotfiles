@@ -11,6 +11,30 @@ set t_Co=256                                 " Ensure we use 256 colors
 
 
 """"""""""""""""""""""""""""""""""""""""""""""
+" Plugins
+""""""""""""""""""""""""""""""""""""""""""""""
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'gmarik/Vundle.vim'                   " Plugin manager
+Plugin 'airblade/vim-gitgutter'              " Display git commit lines in gutter
+Plugin 'vim-airline/vim-airline'             " Bar at bottom of screen
+Plugin 'mbbill/undotree'                     " Undo manager
+Plugin 'wincent/command-t'                   " Fuzzy file finder
+Plugin 'mhinz/vim-startify'                  " Start page
+Plugin 'arcticicestudio/nord-vim'            " Color scheme
+call vundle#end()
+filetype plugin indent on
+
+
+""""""""""""""""""""""""""""""""""""""""""""""
+" Colorscheme
+""""""""""""""""""""""""""""""""""""""""""""""
+colorscheme nord                             " Colorscheme to use
+" fix for visual highlighting
+highlight Visual cterm=reverse ctermbg=NONE
+
+
+""""""""""""""""""""""""""""""""""""""""""""""
 " Filenames
 """"""""""""""""""""""""""""""""""""""""""""""
 " todo: add windows support
@@ -25,11 +49,10 @@ set undodir=~/.vim/tmp/undofiles//           " Directory to save undo history
 """"""""""""""""""""""""""""""""""""""""""""""
 set mouse=a                                  " Allow mouse
 set autoread                                 " Auto read when a file is changed from the outside
-set so=10                                    " Set 10 lines to the cursor - when moving vertically
+set so=10                                    " Set 10 lines to the cursor when moving vertically
 set lazyredraw                               " Don't redraw while executing macros
 set undofile                                 " Persistent Undo
 set pastetoggle=<F2>                         " When in insert mode, <F2> to go to mass paste mode
-set background=dark                          " Use dark theme
 set wildmenu                                 " Enable wild for command completion
 set backspace=eol,start,indent               " Configure backspace so it acts as it should act
 set clipboard^=unnamed,unnamedplus           " Use system clipboard
@@ -37,6 +60,18 @@ set history=10000                            " Remember more commands and search
 let g:netrw_dirhistmax=0                     " Disable netrw history file
 let g:airline#extensions#tabline#enabled = 1 " Style the tabs properly
 autocmd BufWritePre * %s/\s\+$//e            " Remove unnecessary whitespace
+let g:startify_session_persistence = 1       " Autosave sessions
+
+
+""""""""""""""""""""""""""""""""""""""""""""""
+" Startify theme and layout
+""""""""""""""""""""""""""""""""""""""""""""""
+let g:startify_lists = [
+    \ { 'type': 'sessions',  'header': [   'Sessions']       },
+    \ { 'type': 'dir',       'header': [   'MRU '. getcwd()] },
+    \ { 'type': 'bookmarks', 'header': [   'Bookmarks']      },
+    \ { 'type': 'commands',  'header': [   'Commands']       },
+\ ]
 
 
 """"""""""""""""""""""""""""""""""""""""""""""
@@ -78,14 +113,14 @@ endif
 " (from https://stackoverflow.com/a/8462159/9134405)
 """"""""""""""""""""""""""""""""""""""""""""""
 function! EnsureDirExists (dir)
-  if !isdirectory(a:dir)
-    if exists("*mkdir")
-      call mkdir(a:dir, 'p', 0700)    " Only readable by owner
-      echo "Created directory: " . a:dir
-    else
-      echo "Unable to create directory. Please create it: " . a:dir
+    if !isdirectory(a:dir)
+        if exists("*mkdir")
+            call mkdir(a:dir, 'p', 0700)    " Only readable by owner
+            echo "Created directory: " . a:dir
+        else
+            echo "Unable to create directory. Please create it: " . a:dir
+        endif
     endif
-  endif
 endfunction
 call EnsureDirExists(&backupdir)
 call EnsureDirExists(&directory)
@@ -122,6 +157,7 @@ nnoremap <bs> :bot terminal<cr>
 " Move lines up and down using <C-j> and <C-k>
 " (from https://github.com/noopkat/dotfiles)
 """"""""""""""""""""""""""""""""""""""""""""""
+" Is moving splits better for these keys?
 nnoremap <C-j> :m .+1<CR>==
 nnoremap <C-k> :m .-2<CR>==
 inoremap <C-j> <Esc>:m .+1<CR>==gi
@@ -197,22 +233,3 @@ endfunction
 inoremap <expr> <tab> InsertTabWrapper()
 inoremap <s-tab> <c-n>
 
-
-""""""""""""""""""""""""""""""""""""""""""""""
-" Plugins
-""""""""""""""""""""""""""""""""""""""""""""""
-" Load vundle
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-
-" run :PluginInstall after adding a plugin here
-" run :PluginUpdate to update the plugins
-Plugin 'gmarik/Vundle.vim'                      " Plugin manager
-Plugin 'airblade/vim-gitgutter'                 " Display git commit lines in gutter
-Plugin 'vim-airline/vim-airline'                " Bar at bottom of screen
-Plugin 'mbbill/undotree'                        " Undo manager
-Plugin 'wincent/command-t'                      " Fuzzy file finder
-
-" All of your Plugins must be added before the following line
-call vundle#end()
-filetype plugin indent on
