@@ -1,0 +1,15 @@
+""""""""""""""""""""""""""""""""""""""""""""""
+" c0llision's .vimrc_private
+" Doesn't have as much history as the other vimrc
+" Designed for editing private files
+" https://github.com/c0llision/dotfiles
+""""""""""""""""""""""""""""""""""""""""""""""
+
+source $HOME/.vimrc                          " Load the main vimrc
+set history=0                                " Don't remember command and search history
+
+set noswapfile                               " Disable swap file
+set noundofile                               " Disable undo file
+set nobackup                                 " Disable backup file
+set nowritebackup
+set viminfo=                                 " Don't write to .viminfo
