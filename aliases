@@ -17,9 +17,8 @@ shopt -s expand_aliases                             # Required for using bash al
 #####################################################
 alias tree="tree -C"                                # ensure tree is colorized
 alias ls="ls -F --color=auto"                       # ensure ls is colorized
-alias l="ls --group-directories-first"             # list directories first
-#alias l="ls"                                        # l to list files
-alias ll="l -lah"                                  # ll to do a long list of files
+alias l="ls --group-directories-first"              # list directories first
+alias ll="l -lah"                                   # ll to do a long list of files
 alias lll="tree"                                    # lll to print a tree list of files
 alias ..="cd .."                                    # .. to cd down a level
 alias -- -="cd -"                                   # - will go back to last directory
@@ -216,7 +215,13 @@ if is_app sshuttle; then
   vpn() { sshuttle --dns -r $1 0/0;}                # Use sshuttle as an ssh VPN
 fi
 
+if is_app screen; then
+    alias s="screen"                                # s for GNU screen
+fi
+
 alias jekyll-run="bundle exec jekyll serve --watch" # Build jekyll site
+# get details of TLS cert from a domain/ip
+alias tlscert="openssl s_client -showcerts -port 443 -host"
 
 
 #####################################################
