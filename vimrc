@@ -172,6 +172,7 @@ vnoremap <C-k> :m '<-2<CR>gv=gv
 autocmd BufNewFile *.sh 0r ~/.vim/skeletons/skeleton.sh
 autocmd BufNewFile *.html 0r ~/.vim/skeletons/skeleton.html
 autocmd BufNewFile *.py 0r ~/.vim/skeletons/skeleton.py
+autocmd BufNewFile *.js 0r ~/.vim/skeletons/skeleton.js
 
 
 """"""""""""""""""""""""""""""""""""""""""""""
