@@ -22,6 +22,7 @@ Plugin 'mbbill/undotree'                     " Undo manager
 Plugin 'wincent/command-t'                   " Fuzzy file finder
 Plugin 'mhinz/vim-startify'                  " Start page
 Plugin 'arcticicestudio/nord-vim'            " Color scheme
+Plugin 'tpope/vim-commentary'                " Comments
 call vundle#end()
 filetype plugin indent on
 
