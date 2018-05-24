@@ -27,6 +27,7 @@ function mk(){ mkdir "$@" && cd "$@"; }             # mk will create a new direc
 function c(){ cd "$@" && ls; }                      # c will cd into a directory and list its files
 
 alias router="firefox $router_url"                  # router opens your router admin panel
+alias wiki="firefox ~/vimwiki/html/index.html"      # wiki opens vimwiki in browser
 alias sshtor="ssh -F $ssh_tor_config"               # sshtor uses ssh over tor
 alias sshkeys="ssh-keygen -l -f ~/.ssh/known_hosts" # sshkeys shows ssh hosts fingerperints
 alias weather="curl -4 wttr.in/$weather_location"   # weather displays current weather
@@ -68,6 +69,7 @@ function alias_if_app_exists()
 }
 alias_if_app_exists clip pbcopy                     # Pipe input into "clip" to copy it to clip
 alias_if_app_exists vscode code                     # "vscode" opens visual studio code
+alias_if_app_exists mutt neomutt                    # "vscode" opens visual studio code
 
 
 #####################################################
@@ -99,7 +101,7 @@ if is_app git; then
         # "clone" clones a git repo into code directory and cds into it
         local tmp=$(mktemp)
         local repo_name
-        cd $code_dir
+        cd ~/code
         git clone "$@" --progress 2>&1 | tee $tmp # OSX only
         repo_name=$(awk -F\' '/Cloning into/ {print $2}' $tmp)
         rm $tmp
@@ -148,11 +150,13 @@ alias ~="cd $HOME && ls"                            # ~ cds to your home folder
 # vim
 #####################################################
 # Use mvim if its installed, otherwise if vim isn't installed at all, use nano
-if is_app mvim; then
-    alias vim="mvim -v";                            # Use mvim if installed
-else if ! is_app vim; then
-    alias vim="nano"; fi                            # Use nano if vim not installed
-fi
+
+# if is_app mvim; then
+#     alias vim="mvim -v";                            # Use mvim if installed
+# else if ! is_app vim; then
+#     alias vim="nano"; fi                            # Use nano if vim not installed
+# fi
+
 if is_app vim; then
     alias vim="vim -p"                              # Open multiple files in different tabs
 fi
