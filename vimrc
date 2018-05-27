@@ -3,28 +3,32 @@
 " https://github.com/c0llision/dotfiles
 """"""""""""""""""""""""""""""""""""""""""""""
 set nocompatible                             " Run in non-backwards compatible mode
-filetype off                                 " Needed for vundle plugin manager
-syntax on                                    " Turn on syntax highlighting
 set encoding=utf-8                           " Encoding shown on screen is utf-8
 set term=xterm-256color                      " Use a 256 color terminal
 set t_Co=256                                 " Ensure we use 256 colors
+set re=1                                     " Use faster RE engine
 
 
 """"""""""""""""""""""""""""""""""""""""""""""
 " Plugins
 """"""""""""""""""""""""""""""""""""""""""""""
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-Plugin 'gmarik/Vundle.vim'                   " Plugin manager
-Plugin 'airblade/vim-gitgutter'              " Display git commit lines in gutter
-Plugin 'vim-airline/vim-airline'             " Bar at bottom of screen
-Plugin 'mbbill/undotree'                     " Undo manager
-Plugin 'wincent/command-t'                   " Fuzzy file finder
-Plugin 'mhinz/vim-startify'                  " Start page
-Plugin 'arcticicestudio/nord-vim'            " Color scheme
-Plugin 'tpope/vim-commentary'                " Comments
-call vundle#end()
-filetype plugin indent on
+" Install vim-plug if not installed
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+call plug#begin('~/.vim/plug')
+Plug 'airblade/vim-gitgutter'                " Display git commit lines in gutter
+Plug 'vim-airline/vim-airline'               " Bar at bottom of screen
+Plug 'mbbill/undotree'                       " Undo manager
+Plug 'wincent/command-t'                     " Fuzzy file finder
+Plug 'mhinz/vim-startify'                    " Start page
+Plug 'arcticicestudio/nord-vim'              " Color scheme
+Plug 'tpope/vim-commentary'                  " Comments
+Plug 'vimwiki/vimwiki'                       " Note taking
+call plug#end()
 
 
 """"""""""""""""""""""""""""""""""""""""""""""
@@ -57,12 +61,26 @@ let g:startify_session_persistence = 1       " Autosave sessions
 
 
 """"""""""""""""""""""""""""""""""""""""""""""
+" Vimwiki
+""""""""""""""""""""""""""""""""""""""""""""""
+let g:vimwiki_list = [{'path': '~/vimwiki',
+  \ 'path_html': '~/vimwiki/html',
+  \ 'syntax': 'markdown',
+  \ 'custom_wiki2html':  '~/.vim/wiki2html.sh',
+  \ 'auto_export' : 1,
+  \ 'ext': '.md'}]
+
+au BufWritePost *.wiki VimwikiAll2HTML
+
+""""""""""""""""""""""""""""""""""""""""""""""
 " Startify theme and layout
 """"""""""""""""""""""""""""""""""""""""""""""
+" let g:startify_bookmarks = [ '']
+
 let g:startify_lists = [
     \ { 'type': 'sessions',  'header': [   'Sessions']       },
-    \ { 'type': 'dir',       'header': [   'MRU '. getcwd()] },
     \ { 'type': 'bookmarks', 'header': [   'Bookmarks']      },
+    \ { 'type': 'dir',       'header': [   'MRU '. getcwd()] },
     \ { 'type': 'commands',  'header': [   'Commands']       },
 \ ]
 
@@ -139,19 +157,18 @@ function! RunProgram(filename)
         echo "File is not executable"
     endif
 endfunction
-nnoremap <CR> :call RunProgram(@%)<cr>
+" nnoremap <CR> :call RunProgram(@%)<cr>
+
+" <enter> and <s-enter> to insert blank lines
+map <Enter> o<ESC>
+" doesnt work in cli
+map <S-Enter> O<ESC>
 
 
 """"""""""""""""""""""""""""""""""""""""""""""
 " \r to make current file executable and run it
 """"""""""""""""""""""""""""""""""""""""""""""
 noremap <Leader>r :!chmod +x %:p<cr>:!%:p<cr>
-
-
-""""""""""""""""""""""""""""""""""""""""""""""
-" Press backspace to open a terminal on the bottom
-""""""""""""""""""""""""""""""""""""""""""""""
-nnoremap <bs> :bot terminal<cr>
 
 
 """"""""""""""""""""""""""""""""""""""""""""""
@@ -174,6 +191,7 @@ autocmd BufNewFile *.sh 0r ~/.vim/skeletons/skeleton.sh
 autocmd BufNewFile *.html 0r ~/.vim/skeletons/skeleton.html
 autocmd BufNewFile *.py 0r ~/.vim/skeletons/skeleton.py
 autocmd BufNewFile *.js 0r ~/.vim/skeletons/skeleton.js
+autocmd BufNewFile *.md 0r ~/.vim/skeletons/skeleton.md
 
 
 """"""""""""""""""""""""""""""""""""""""""""""
@@ -199,7 +217,17 @@ command! Q q
 command! W w
 command! WQ wq
 command! Wq wq
-nnoremap ; :
+
+noremap <Up> <NOP>
+noremap <Down> <NOP>
+noremap <Left> <NOP>
+noremap <Right> <NOP>
+
+" Uncomment for practising
+" noremap h <NOP>
+" noremap j <NOP>
+" noremap k <NOP>
+" noremap l <NOP>
 
 
 """"""""""""""""""""""""""""""""""""""""""""""
