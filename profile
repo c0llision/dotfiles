@@ -69,6 +69,15 @@ shopt -s cmdhist
 
 
 #####################################################
+# GPG as SSH key
+#####################################################
+gpgconf --launch gpg-agent
+export "GPG_TTY=$(tty)"
+export "SSH_AUTH_SOCK=${HOME}/.gnupg/S.gpg-agent.ssh"
+# export PINENTRY_USER_DATA="USE_CURSES=1"
+
+
+#####################################################
 # Prompt
 #####################################################
 function color_my_prompt {
