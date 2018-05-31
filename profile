@@ -3,7 +3,6 @@
 # c0llision's bash profile
 # https://github.com/c0llision/dotfiles
 #####################################################
-export TERM="xterm-color"                           # ensure colors work correctly
 aliases_file="$HOME/.aliases"                       # bash aliases file
 
 
@@ -59,6 +58,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   export TERM=xterm-256color
 fi
 
+[[ -z $TMUX ]] && exec tmux                         # Autostart tmux
 
 #####################################################
 # Bash history
