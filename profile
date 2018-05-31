@@ -54,6 +54,9 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   if [ -f $(brew --prefix)/etc/bash_completion ]; then
   . $(brew --prefix)/etc/bash_completion
   fi
+
+  # terminal colors
+  export TERM=xterm-256color
 fi
 
 
