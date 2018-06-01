@@ -75,7 +75,10 @@ shopt -s cmdhist
 #####################################################
 # GPG as SSH key
 #####################################################
-gpgconf --launch gpg-agent
+if is_app gpgconf; then
+  gpgconf --launch gpg-agent
+fi
+
 export "GPG_TTY=$(tty)"
 export "SSH_AUTH_SOCK=${HOME}/.gnupg/S.gpg-agent.ssh"
 # export PINENTRY_USER_DATA="USE_CURSES=1"
