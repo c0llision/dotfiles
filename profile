@@ -4,6 +4,7 @@
 # https://github.com/c0llision/dotfiles
 #####################################################
 aliases_file="$HOME/.aliases"                       # bash aliases file
+debug_mode=0
 
 
 #####################################################
@@ -21,7 +22,7 @@ function add_to_path()
 {
     if is_dir $1; then
         export PATH="$1:$PATH"
-    else
+    elif [ "$debug_mode" -eq 1 ]; then
         echo "unable to add to path $1"
     fi
 }

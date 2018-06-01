@@ -63,7 +63,7 @@ function alias_if_app_exists()
     # $1 = alias name, $2 = command
     if is_app $2; then
         alias $1="`which $2`";
-    else
+    elif [ "$debug_mode" -eq 1 ]; then
         echo "unable to create command alias:  $1 $2"
     fi
 }
@@ -99,13 +99,17 @@ if is_app git; then
     function clone()
     {
         # "clone" clones a git repo into code directory and cds into it
-        local tmp=$(mktemp)
-        local repo_name
         cd ~/code
-        git clone "$@" --progress 2>&1 | tee $tmp # OSX only
-        repo_name=$(awk -F\' '/Cloning into/ {print $2}' $tmp)
-        rm $tmp
-        cd "$repo_name"
+        git clone --depth=1 $1
+        cd $(basename $1)
+        # cd $(basename ${1%.*})
+        # local tmp=$(mktemp)
+        # local repo_name
+        # cd ~/code
+        # git clone "$@" --progress 2>&1 | tee $tmp # OSX only
+        # repo_name=$(awk -F\' '/Cloning into/ {print $2}' $tmp)
+        # rm $tmp
+        # cd "$repo_name"
     }
     if is_dir ~/.dotfiles; then
         # this is an old way of managing my dotfiles that I still use
@@ -218,6 +222,13 @@ fi                                                  # Email me if you want a cop
 if is_app sshuttle; then
   vpn() { sshuttle --dns -r $1 0/0;}                # Use sshuttle as an ssh VPN
 fi
+
+=() {                                               # = for calculator
+    local IFS=' '
+    local calc="${*//p/+}"
+    calc="${calc//x/*}"
+    bc -l <<<"scale=10;$calc"
+}
 
 if is_app screen; then
     alias s="screen"                                # s for GNU screen
