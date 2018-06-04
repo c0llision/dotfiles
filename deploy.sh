@@ -28,3 +28,6 @@ cp ssh_config ~/.ssh/config
 
 mv ~/.ssh/config_tor ~/.dotfiles.old/.ssh_config_tor
 cp ssh_config_tor ~/.ssh/config_tor
+
+mv ~/.tmux.conf ~/.dotfiles.old/.tmux.conf
+cp tmux.conf ~/.tmux.conf
