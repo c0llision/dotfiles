@@ -58,8 +58,11 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   export TERM=xterm-256color
 fi
 
-# [[ -z $TMUX ]] && exec tmux                         # Autostart tmux
-eval "$(tmuxifier init -)"                          # Start tmuxifier
+if is_app tmuxifier; then
+  eval "$(tmuxifier init -)"                        # Start tmuxifier
+fi
+
+
 #####################################################
 # Bash history
 #####################################################
