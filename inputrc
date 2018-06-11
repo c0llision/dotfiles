@@ -1,2 +1,16 @@
 # Use Vi mode in bash or anything that uses readline
 set editing-mode vi
+
+Control-p: kill-whole-line
+
+$if mode=vi
+
+set keymap vi-command
+# these are for vi-command mode
+Control-e: clear-screen
+
+set keymap vi-insert
+# these are for vi-insert mode
+Control-e: clear-screen
+
+$endif
