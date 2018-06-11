@@ -31,12 +31,9 @@ alias wiki="firefox ~/vimwiki/html/index.html"      # wiki opens vimwiki in brow
 alias sshtor="ssh -F $ssh_tor_config"               # sshtor uses ssh over tor
 alias sshkeys="ssh-keygen -l -f ~/.ssh/known_hosts" # sshkeys shows ssh hosts fingerperints
 alias weather="curl -4 wttr.in/$weather_location"   # weather displays current weather
-alias ip="curl -4 icanhazip.com"                    # ip prints your external ip
+alias myip="curl -4 icanhazip.com"                    # ip prints your external ip
 
-alias cl="clear"                                    # cl will clear the screen
 alias sudo="sudo "                                  # This lets you use aliases when sudoing
-alias ZZ="exit"                                     # Vim exit commands work in bash
-alias :q="exit"                                     #
 
 
 #####################################################
@@ -167,6 +164,7 @@ fi
 alias v="vim"                                       # "v" runs vim
 alias vimrc="vim ~/.vimrc"                          # "vimrc" opens vimrc file in vim
 alias vp="vim -u ~/.vimrc_private"                  # vp to edit private files in vim
+alias less="/usr/share/vim/vim80/macros/less.sh"
 
 
 #####################################################
