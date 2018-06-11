@@ -32,6 +32,7 @@ add_to_path "$HOME/scripts"                         # My scripts
 add_to_path "/usr/local/sbin"                       # brew(?)
 add_to_path "/usr/local/opt/curl/bin"               # Newer curl
 add_to_path /usr/local/opt/coreutils/libexec/gnubin # Use newer gnu coreutils from brew
+add_to_path $HOME/.tmuxifier/bin                    # tmuxifier
 # Go path
 export GOPATH=$HOME/go
 export GOROOT=/usr/local/opt/go/libexec
@@ -43,10 +44,8 @@ add_to_path "$GOROOT/bin"
 # General
 #####################################################
 shopt -s autocd                                     # cd into directory without typing cd
-if is_app vim; then
-  export EDITOR=vim                                 # make vim the default editor
-  export VISUAL=vim
-fi
+export EDITOR=vim                                 # make vim the default editor
+export VISUAL=vim
 
 # OSX only
 if [[ "$OSTYPE" == "darwin"* ]]; then
@@ -59,8 +58,8 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   export TERM=xterm-256color
 fi
 
-[[ -z $TMUX ]] && exec tmux                         # Autostart tmux
-
+# [[ -z $TMUX ]] && exec tmux                         # Autostart tmux
+eval "$(tmuxifier init -)"                          # Start tmuxifier
 #####################################################
 # Bash history
 #####################################################
