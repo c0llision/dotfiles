@@ -34,7 +34,7 @@ alias weather="curl -4 wttr.in/$weather_location"   # weather displays current w
 alias myip="curl -4 icanhazip.com"                    # ip prints your external ip
 
 alias sudo="sudo "                                  # This lets you use aliases when sudoing
-
+alias nc="ncat"
 
 #####################################################
 # Application aliases
@@ -60,8 +60,6 @@ function alias_if_app_exists()
     # $1 = alias name, $2 = command
     if is_app $2; then
         alias $1="`which $2`";
-    elif [ "$debug_mode" -eq 1 ]; then
-        echo "unable to create command alias:  $1 $2"
     fi
 }
 alias_if_app_exists clip pbcopy                     # Pipe input into "clip" to copy it to clip
@@ -207,9 +205,6 @@ function profile()
     source ${HOME}/.profile
 }
 
-if is_app clementine; then
-    alias clementine="open -a clementine"           # "clementine" opens clementine music player
-fi
 if is_app hexdump; then
     alias hexdump="hexdump -C"                      # Colorize hexdump
 fi
@@ -217,9 +212,16 @@ if is_app hideout; then
     alias h="hideout"                               # "h" to run hideout password manager
 fi                                                  # Email me if you want a copy of it
 
-if is_app sshuttle; then
-  vpn() { sshuttle --dns -r $1 0/0;}                # Use sshuttle as an ssh VPN
-fi
+alias vs='screen -q -r -D vim || screen -S vim $(which vim)'
+alias aria="aria2c --seed-time=0 -x 10"
+# Run cmus in daemon-like mode
+# if is_app cmus; then
+#     alias cmus='screen -q -r -D cmus || screen -S cmus $(which cmus)'
+# fi
+
+# if is_app sshuttle; then
+#   vpn() { sshuttle --dns -r $1 0/0;}                # Use sshuttle as an ssh VPN
+# fi
 
 =() {                                               # = for calculator
     local IFS=' '
@@ -247,6 +249,8 @@ function osx_update()
         brew update
         brew upgrade
         brew cleanup
+        gem update
+        # rm -rf $(brew --cache)
     fi
 }
 function linux_update()

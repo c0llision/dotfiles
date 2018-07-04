@@ -28,7 +28,6 @@ Plug 'mhinz/vim-startify'                    " Start page
 Plug 'arcticicestudio/nord-vim'              " Color scheme
 Plug 'tpope/vim-commentary'                  " Comments
 Plug 'vimwiki/vimwiki'                       " Note taking
-Plug 'easymotion/vim-easymotion'             " easy motion
 call plug#end()
 
 
@@ -59,23 +58,6 @@ let g:netrw_dirhistmax=0                     " Disable netrw history file
 let g:airline#extensions#tabline#enabled = 1 " Style the tabs properly
 autocmd BufWritePre * %s/\s\+$//e            " Remove unnecessary whitespace
 let g:startify_session_persistence = 1       " Autosave sessions
-
-
-""""""""""""""""""""""""""""""""""""""""""""""
-" Easy motion
-""""""""""""""""""""""""""""""""""""""""""""""
-let g:EasyMotion_do_mapping = 0 " Disable default mappings
-
-" Jump to anywhere you want with minimal keystrokes, with just one key binding.
-" `s{char}{label}`
-nmap s <Plug>(easymotion-overwin-f)
-" or
-" `s{char}{char}{label}`
-" Need one more keystroke, but on average, it may be more comfortable.
-" nmap s <Plug>(easymotion-overwin-f2)
-
-" Turn on case insensitive feature
-let g:EasyMotion_smartcase = 1
 
 
 """"""""""""""""""""""""""""""""""""""""""""""
@@ -246,6 +228,10 @@ noremap <Right> <NOP>
 " noremap j <NOP>
 " noremap k <NOP>
 " noremap l <NOP>
+
+" <s-q> detaches the screen session
+nmap Q :!screen -d vim<Enter><Enter>
+
 
 
 """"""""""""""""""""""""""""""""""""""""""""""
