@@ -3,6 +3,8 @@
 # c0llision's bash profile
 # https://github.com/c0llision/dotfiles
 #####################################################
+[[ $- != *i* ]] && return                           # Do nothing if not running interactive
+
 aliases_file="$HOME/.aliases"                       # bash aliases file
 debug_mode=0
 
@@ -38,6 +40,7 @@ export GOROOT=/usr/local/opt/go/libexec
 add_to_path "$GOPATH/bin"
 add_to_path "$GOROOT/bin"
 # export PYTHONPATH="/usr/local/lib/python3.6/site-packages/foundation/"
+add_to_path "/opt/local/bin:/opt/local/sbin"       # macports
 
 
 #####################################################
@@ -113,12 +116,3 @@ color_my_prompt
 
 # Display blank line before output of command (this needs to be last in .profile)
 trap 'echo' DEBUG
-
-##
-# Your previous /Users/c0llision/.profile file was backed up as /Users/c0llision/.profile.macports-saved_2018-06-16_at_09:39:27
-##
-
-# MacPorts Installer addition on 2018-06-16_at_09:39:27: adding an appropriate PATH variable for use with MacPorts.
-export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
-# Finished adapting your PATH environment variable for use with MacPorts.
-

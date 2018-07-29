@@ -35,6 +35,9 @@ alias myip="curl -4 icanhazip.com"                    # ip prints your external 
 
 alias sudo="sudo "                                  # This lets you use aliases when sudoing
 alias nc="ncat"
+alias http="python2 -m SimpleHTTPServer"
+alias boxes="cd ~/oscp/boxes/"
+alias hashid="hashid -m -j"
 
 #####################################################
 # Application aliases
