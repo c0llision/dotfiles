@@ -59,6 +59,22 @@ let g:airline#extensions#tabline#enabled = 1 " Style the tabs properly
 autocmd BufWritePre * %s/\s\+$//e            " Remove unnecessary whitespace
 let g:startify_session_persistence = 1       " Autosave sessions
 
+""""""""""""""""""""""""""""""""""""""""""""""
+" Python ipdb debugging
+""""""""""""""""""""""""""""""""""""""""""""""
+
+func! s:SetBreakpoint()
+    cal append('.', repeat(' ', strlen(matchstr(getline('.'), '^\s*'))) . 'import ipdb; ipdb.set_trace()')
+endf
+
+func! s:RemoveBreakpoint()
+    exe 'silent! g/^\s*import\sipdb\;\?\n*\s*ipdb.set_trace()/d'
+endf
+
+func! s:ToggleBreakpoint()
+    if getline('.')=~#'^\s*import\sipdb' | cal s:RemoveBreakpoint() | el | cal s:SetBreakpoint() | en
+endf
+nnoremap <F6> :call <SID>ToggleBreakpoint()<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""
 " Vimwiki
