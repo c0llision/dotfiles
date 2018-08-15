@@ -35,9 +35,12 @@ alias myip="curl -4 icanhazip.com"                    # ip prints your external 
 
 alias sudo="sudo "                                  # This lets you use aliases when sudoing
 alias nc="ncat"
-alias http="python2 -m SimpleHTTPServer"
+alias httpserv="python2 -m SimpleHTTPServer"
 alias boxes="cd ~/oscp/boxes/"
 alias hashid="hashid -m -j"
+alias attach="tmux attach"
+alias powershell="pwsh"
+alias r=ranger
 
 #####################################################
 # Application aliases
@@ -119,8 +122,8 @@ fi # end if is_app git
 #####################################################
 # Python
 #####################################################
-if is_app python; then
-    alias py="python"                               # "py" opens python shell
+if is_app bpython; then
+    alias py="bpython"                               # "py" opens python shell
     if is_app python3; then
         alias python="python3"                      # Use python3 as default
     fi
@@ -251,6 +254,7 @@ function osx_update()
     if is_app brew; then
         brew update
         brew upgrade
+        brew cask upgrade
         brew cleanup
         gem update
         # rm -rf $(brew --cache)
