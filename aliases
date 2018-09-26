@@ -15,16 +15,17 @@ shopt -s expand_aliases                             # Required for using bash al
 #####################################################
 # GENERAL
 #####################################################
-alias tree="tree -C"                                # ensure tree is colorized
-alias ls="ls -F --color=auto"                       # ensure ls is colorized
-alias l="ls --group-directories-first"              # list directories first
-alias ll="l -lah"                                   # ll to do a long list of files
+alias cat="bat"
+alias tree="exa --tree --long"                      # ensure tree is colorized
 alias lll="tree"                                    # lll to print a tree list of files
+alias ls="ls -F --color=auto"                       # ensure ls is colorized
+alias l="exa --git --group-directories-first"       # list directories first
+alias ll="l -lah"                                   # ll to do a long list of files
 alias ..="cd .."                                    # .. to cd down a level
 alias -- -="cd -"                                   # - will go back to last directory
 alias filecount="find . -type f | wc -l"            # filecount will count files in a directory
 function mk(){ mkdir "$@" && cd "$@"; }             # mk will create a new directory and cd into it
-function c(){ cd "$@" && ls; }                      # c will cd into a directory and list its files
+function c(){ cd "$@" && l; }                      # c will cd into a directory and list its files
 
 alias router="firefox $router_url"                  # router opens your router admin panel
 alias wiki="firefox ~/vimwiki/html/index.html"      # wiki opens vimwiki in browser
@@ -148,7 +149,7 @@ alias_if_dir_exists code $code_dir                  # "code" cds to code folder
 alias_if_dir_exists dls $dl_dir                     # "dls" cds to downloads folder
 alias_if_dir_exists downloads $dl_dir               # "downloads" cds to downloads folder
 alias_if_dir_exists docs $docs_dir                  # "docs" cds to documents folder
-alias ~="cd $HOME && ls"                            # ~ cds to your home folder
+alias ~="cd $HOME && l"                             # ~ cds to your home folder
 
 
 #####################################################
@@ -163,12 +164,12 @@ alias ~="cd $HOME && ls"                            # ~ cds to your home folder
 # fi
 
 if is_app vim; then
-    alias vim="vim -p"                              # Open multiple files in different tabs
+    alias vim="nvim -p"                              # Open multiple files in different tabs
 fi
 alias v="vim"                                       # "v" runs vim
 alias vimrc="vim ~/.vimrc"                          # "vimrc" opens vimrc file in vim
 alias vp="vim -u ~/.vimrc_private"                  # vp to edit private files in vim
-alias less="/usr/share/vim/vim80/macros/less.sh"
+# alias less="/usr/share/vim/vim80/macros/less.sh"
 
 
 #####################################################
